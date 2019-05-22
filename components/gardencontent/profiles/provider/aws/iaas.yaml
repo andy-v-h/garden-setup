@@ -14,84 +14,92 @@
 
 <<: (( &template ))
 aws:
+  <<: (( merge ))
   constraints:
-    dnsProviders:
-    - name: (( values.dns.type ))
-    - name: unmanaged
-    kubernetes:
-      versions: (( values.kubernetes.versions ))
-    machineImages:
-    - name: coreos
-      regions:
-      - name: eu-west-1
-        ami: ami-030d1bab626c90e46
-      - name: eu-central-1
-        ami: ami-015e6cb33a709348e
-      - name: us-east-1
-        ami: ami-0b1db01d775d666c2
-    machineTypes:
-    - name: m4.large
-      cpu: "2"
-      gpu: "0"
-      memory: 8Gi
-      usable: true
-    - name: m4.xlarge
-      cpu: "4"
-      gpu: "0"
-      memory: 16Gi
-      usable: true
-    - name: m4.2xlarge
-      cpu: "8"
-      gpu: "0"
-      memory: 32Gi
-      usable: true
-    - name: m4.4xlarge
-      cpu: "16"
-      gpu: "0"
-      memory: 64Gi
-      usable: true
-    - name: m4.10xlarge
-      cpu: "40"
-      gpu: "0"
-      memory: 160Gi
-      usable: true
-    - name: m4.16xlarge
-      cpu: "64"
-      gpu: "0"
-      memory: 256Gi
-      usable: false
-    - name: p2.xlarge
-      cpu: "4"
-      gpu: "1"
-      memory: 61Gi
-    - name: p2.8xlarge
-      cpu: "32"
-      gpu: "8"
-      memory: 488Gi
-    - name: p2.16xlarge
-      cpu: "64"
-      gpu: "16"
-      memory: 732Gi
-    volumeTypes:
-    - name: gp2
-      class: standard
-      usable: true
-    - name: io1
-      class: premium
-      usable: false
-    zones:
-    - region: eu-west-1
-      names:
-      - eu-west-1a
-      - eu-west-1b
-      - eu-west-1c
-    - region: eu-central-1
-      names:
-      - eu-central-1a
-      - eu-central-1b
-      - eu-central-1c
-    - region: us-east-1
-      names:
-      - us-east-1a
-      - us-east-1b
-      - us-east-1c
+    <<: (( merge ))
+    dnsProviders: (( defaults.dnsProviders ))
+    kubernetes: (( values.kubernetes ))
+    machineImages: (( defaults.machineImages ))
+    machineTypes: (( defaults.machineTypes ))
+    zones: (( defaults.zones ))
+
+defaults:
+  <<: (( &temporary ))
+  dnsProviders:
+  - name: (( values.dns.type ))
+  - name: unmanaged
+  machineImages:
+  - name: coreos
+    regions:
+    - name: eu-west-1
+      ami: ami-030d1bab626c90e46
+    - name: eu-central-1
+      ami: ami-015e6cb33a709348e
+    - name: us-east-1
+      ami: ami-0b1db01d775d666c2
+  machineTypes:
+  - name: m4.large
+    cpu: "2"
+    gpu: "0"
+    memory: 8Gi
+    usable: true
+  - name: m4.xlarge
+    cpu: "4"
+    gpu: "0"
+    memory: 16Gi
+    usable: true
+  - name: m4.2xlarge
+    cpu: "8"
+    gpu: "0"
+    memory: 32Gi
+    usable: true
+  - name: m4.4xlarge
+    cpu: "16"
+    gpu: "0"
+    memory: 64Gi
+    usable: true
+  - name: m4.10xlarge
+    cpu: "40"
+    gpu: "0"
+    memory: 160Gi
+    usable: true
+  - name: m4.16xlarge
+    cpu: "64"
+    gpu: "0"
+    memory: 256Gi
+    usable: false
+  - name: p2.xlarge
+    cpu: "4"
+    gpu: "1"
+    memory: 61Gi
+  - name: p2.8xlarge
+    cpu: "32"
+    gpu: "8"
+    memory: 488Gi
+  - name: p2.16xlarge
+    cpu: "64"
+    gpu: "16"
+    memory: 732Gi
+  volumeTypes:
+  - name: gp2
+    class: standard
+    usable: true
+  - name: io1
+    class: premium
+    usable: false
+  zones:
+  - region: eu-west-1
+    names:
+    - eu-west-1a
+    - eu-west-1b
+    - eu-west-1c
+  - region: eu-central-1
+    names:
+    - eu-central-1a
+    - eu-central-1b
+    - eu-central-1c
+  - region: us-east-1
+    names:
+    - us-east-1a
+    - us-east-1b
+    - us-east-1c

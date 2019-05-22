@@ -14,69 +14,78 @@
 
 <<: (( &template ))
 azure:
+  <<: (( merge ))
   constraints:
-    dnsProviders:
-    - name: (( values.dns.type ))
-    - name: unmanaged
-    kubernetes:
-      versions: (( values.kubernetes.versions ))
-    machineImages:
-    - name: coreos
-      publisher: CoreOS
-      offer: CoreOS
-      sku: Stable
-      version: 1911.5.0
-    machineTypes:
-    - name: Standard_DS2_v2
-      cpu: "2"
-      gpu: "0"
-      memory: 7Gi
-      usable: true
-    - name: Standard_DS3_v2
-      cpu: "4"
-      gpu: "0"
-      memory: 14Gi
-      usable: true
-    - name: Standard_DS4_v2
-      cpu: "8"
-      gpu: "0"
-      memory: 28Gi
-      usable: true
-    - name: Standard_DS5_v2
-      cpu: "16"
-      gpu: "0"
-      memory: 56Gi
-      usable: false
-    - name: Standard_F2s
-      cpu: "2"
-      gpu: "0"
-      memory: 4Gi
-    - name: Standard_F4s
-      cpu: "4"
-      gpu: "0"
-      memory: 8Gi
-    - name: Standard_F8s
-      cpu: "8"
-      gpu: "0"
-      memory: 16Gi
-    - name: Standard_F16s
-      cpu: "16"
-      gpu: "0"
-      memory: 32Gi
-    volumeTypes:
-    - name: standard
-      class: standard
-      usable: true
-    - name: premium
-      class: premium
-      usable: false
-  countUpdateDomains:
-  - region: westeurope
-    count: 5
-  - region: eastus
-    count: 5
-  countFaultDomains:
-  - region: westeurope
-    count: 2
-  - region: eastus
-    count: 2
+    <<: (( merge ))
+    dnsProviders: (( defaults.dnsProviders ))
+    kubernetes: (( values.kubernetes ))
+    machineImages: (( defaults.machineImages ))
+    machineTypes: (( defaults.machineTypes ))
+    countUpdateDomains: (( defaults.countUpdateDomains ))
+    countFaultDomains: (( defaults.countFaultDomains ))
+
+defaults:
+  <<: (( &temporary ))
+  dnsProviders:
+  - name: (( values.dns.type ))
+  - name: unmanaged
+  machineImages:
+  - name: coreos
+    publisher: CoreOS
+    offer: CoreOS
+    sku: Stable
+    version: 1911.5.0
+  machineTypes:
+  - name: Standard_DS2_v2
+    cpu: "2"
+    gpu: "0"
+    memory: 7Gi
+    usable: true
+  - name: Standard_DS3_v2
+    cpu: "4"
+    gpu: "0"
+    memory: 14Gi
+    usable: true
+  - name: Standard_DS4_v2
+    cpu: "8"
+    gpu: "0"
+    memory: 28Gi
+    usable: true
+  - name: Standard_DS5_v2
+    cpu: "16"
+    gpu: "0"
+    memory: 56Gi
+    usable: false
+  - name: Standard_F2s
+    cpu: "2"
+    gpu: "0"
+    memory: 4Gi
+  - name: Standard_F4s
+    cpu: "4"
+    gpu: "0"
+    memory: 8Gi
+  - name: Standard_F8s
+    cpu: "8"
+    gpu: "0"
+    memory: 16Gi
+  - name: Standard_F16s
+    cpu: "16"
+    gpu: "0"
+    memory: 32Gi
+  volumeTypes:
+  - name: standard
+    class: standard
+    usable: true
+  - name: premium
+    class: premium
+    usable: false
+countUpdateDomains:
+- region: westeurope
+  count: 5
+- region: eastus
+  count: 5
+countFaultDomains:
+- region: westeurope
+  count: 2
+- region: eastus
+  count: 2
