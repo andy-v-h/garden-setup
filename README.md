@@ -45,7 +45,7 @@ To install Gardener in your base cluster, a command line tool [sow](https://gith
     git clone "https://github.com/gardener/garden-setup" crop
     ```
 
-1. If you don't have your `kubekonfig` stored locally somewhere yet, download it. For example, for GKE you would use the following command:
+1. If you don't have your `kubeconfig` stored locally somewhere yet, download it. For example, for GKE you would use the following command:
 
     ```bash
     gcloud container clusters get-credentials <your_cluster> --zone <your_zone> --project <your_project>
